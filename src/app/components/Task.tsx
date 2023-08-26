@@ -1,6 +1,6 @@
 "use client"
-
-import { useState, } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+import { toggle } from '../store/toggleShow'
 import styles from "../styles/page.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
@@ -12,13 +12,14 @@ interface TaskProps {
 }
 
 export default function Task({ id, title, description }: TaskProps) {
-  const [show, setShow] = useState(false);
+  const show = useSelector((state: any) => state.showButtons[id])
+  const dispatch = useDispatch();
   return (
     <div
       id={id}
       className={styles.taskContainer}
-      onMouseEnter={() => setShow(true)}
-      onMouseLeave={() => setShow(false)}
+      onMouseEnter={() => dispatch(toggle({ taskId: id }))}
+      onMouseLeave={() => dispatch(toggle({ taskId: id }))}
     >
       <div className={styles.task}>
         <p className={styles.taskTitle}>{title}</p>
@@ -32,14 +33,29 @@ export default function Task({ id, title, description }: TaskProps) {
 
 export function Buttons({ show }: { show: boolean }) {
 
+  function deleteTask(event: any) {
+    // get the id of the container and delete it.
+    const targetElement = event.currentTarget.parentElement?.parentElement?.id;
+    console.log("clicked delete");
+  }
+
+  function editTask(event: any) {
+    const targetElement = event.currentTarget.parentElement?.parentElement?.className;
+    console.log(targetElement);
+  }
+
   return (
     <div className={styles.iconsContainer}
       style={{ visibility: show ? "visible" : "hidden" }}
     >
-      <button className={styles.iconDiv}>
+      <button className={styles.iconDiv}
+        onClick={editTask}
+      >
         <FontAwesomeIcon className={styles.icon} icon={faPenToSquare} />
       </button>
-      <button className={styles.iconDiv}>
+      <button className={styles.iconDiv}
+        onClick={deleteTask}
+      >
         <FontAwesomeIcon className={styles.icon} icon={faTrashCan} />
       </button>
     </div>
