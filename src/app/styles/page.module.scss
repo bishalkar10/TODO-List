@@ -13,12 +13,23 @@ $header-height: 80px;
     font-size: 2rem;
     margin-right: auto;
   }
-  .image {
-    height: 80%;
+  .userIconDiv {
+    height: 70%;
     aspect-ratio: 1/1;
     background-color: white;
-    border: none;
-    outline: none;
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+    .userIcon {
+      color: black;
+      font-size: 30px;
+    }
+  }
+
+  .image {
+    height: 70%;
+    aspect-ratio: 1/1;
+    background-color: white;
     border-radius: 50%;
   }
 }
@@ -80,7 +91,7 @@ $header-height: 80px;
           color: black;
         }
         .icon {
-          width: 50%;
+          font-size: 20px;
           aspect-ratio: 1/1;
         }
       }
