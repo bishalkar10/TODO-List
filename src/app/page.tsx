@@ -1,15 +1,18 @@
-import Image from 'next/image';
-import styles from './styles/page.module.scss';
+"use client"
+import { Provider } from "react-redux";
+import store from './store/store';
 import Navbar from "./components/Navbar";
 import Add from "./components/Add";
 import TaskList from "./components/TaskList";
 
 export default function Home() {
   return (
-    <div>
+    <Provider store={store}>
+
       <Navbar />
       <TaskList />
       <Add />
-    </div>
+
+    </Provider>
   )
 }
