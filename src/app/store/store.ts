@@ -1,7 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import showButtonsReducer from "./toggleShow";
-export default configureStore({
+import showButtonsSlice from "./reducers/toggleShow";
+import tasksSlice from "./reducers/tasks";
+
+const store = configureStore({
   reducer: {
-    showButtons: showButtonsReducer,
+    showButtons: showButtonsSlice.reducer,
+    tasks: tasksSlice.reducer,
   },
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+
+export default store;
