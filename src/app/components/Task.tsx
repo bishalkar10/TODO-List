@@ -1,6 +1,7 @@
 "use client"
 import { useSelector, useDispatch } from 'react-redux'
-import { toggle } from '../store/toggleShow'
+import { toggle } from '../store/reducers/toggleShow'
+import { RootState } from '../store/store';
 import styles from "../styles/page.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
@@ -12,7 +13,7 @@ interface TaskProps {
 }
 
 export default function Task({ id, title, description }: TaskProps) {
-  const show = useSelector((state: any) => state.showButtons[id])
+  const show = useSelector((state: RootState) => state.showButtons[id])
   const dispatch = useDispatch();
   return (
     <div
@@ -36,7 +37,8 @@ export function Buttons({ show }: { show: boolean }) {
   function deleteTask(event: any) {
     // get the id of the container and delete it.
     const targetElement = event.currentTarget.parentElement?.parentElement?.id;
-    console.log("clicked delete");
+    console.log("clicked delete", targetElement);
+
   }
 
   function editTask(event: any) {
