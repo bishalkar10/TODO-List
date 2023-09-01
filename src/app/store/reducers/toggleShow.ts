@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface ShowButtonsState {
   [taskId: string]: boolean;
@@ -7,7 +7,7 @@ interface ShowButtonsState {
 const initialState: ShowButtonsState = {};
 
 export const showButtonsSlice = createSlice({
-  name: 'showButtons',
+  name: "showButtons",
   initialState,
   reducers: {
     toggle: (state, action: PayloadAction<{ taskId: string }>) => {
@@ -19,4 +19,4 @@ export const showButtonsSlice = createSlice({
 
 export const { toggle } = showButtonsSlice.actions;
 
-export default showButtonsSlice.reducer;
+export default showButtonsSlice;
