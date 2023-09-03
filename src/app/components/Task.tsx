@@ -1,8 +1,10 @@
 "use client"
-import {useState} from "react";
+import { useState } from "react";
 import styles from "../styles/page.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from "react-redux";
+import { deleteTask, addTask, updateTask } from "../store/reducers/tasks";
 
 interface TaskProps {
   id: string,
@@ -14,7 +16,7 @@ export default function Task({ id, title, description }: TaskProps) {
   const [show, setShow] = useState(false);
   return (
     <div
-      id={id}
+      data-tasks-id={id}
       className={styles.taskContainer}
       onMouseEnter={() => setShow(true)}
       onMouseLeave={() => setShow(false)}
@@ -30,17 +32,19 @@ export default function Task({ id, title, description }: TaskProps) {
 }
 
 export function Buttons({ show }: { show: boolean }) {
+  const dispatch = useDispatch()
 
-  function deleteTask(event: any) {
-    // get the id of the container and delete it.
-    const targetElement = event.currentTarget.parentElement?.parentElement?.id;
+  function deleteTaskHandler(event: any) {
+    const targetElement = event.currentTarget.parentElement?.parentElement;
     console.log("clicked delete", targetElement);
-
+    if (targetElement) {
+      const ID = targetElement.getAttribute("data-tasks-id");
+      dispatch(deleteTask({ id: ID }));
+    }
   }
 
   function editTask(event: any) {
-    const targetElement = event.currentTarget.parentElement?.parentElement?.className;
-    console.log(targetElement);
+    const targetElement = event.currentTarget.parentElement?.parentElement
   }
 
   return (
@@ -53,33 +57,10 @@ export function Buttons({ show }: { show: boolean }) {
         <FontAwesomeIcon className={styles.icon} icon={faPenToSquare} />
       </button>
       <button className={styles.iconDiv}
-        onClick={deleteTask}
+        onClick={deleteTaskHandler}
       >
         <FontAwesomeIcon className={styles.icon} icon={faTrashCan} />
       </button>
     </div>
   );
 }
-
-
-{/* <div className={styles.taskList}>
-  <div className={styles.taskContainer}>
-    <div className={styles.task}>
-      <p className={styles.taskTitle}>{title}</p>
-      <p className={styles.taskDesc}>{description}</p>
-    </div>
-    <div className={styles.iconsContainer}>
-      <button className={styles.iconDiv}>
-        <FontAwesomeIcon className={styles.icon} icon={faPenToSquare} />
-      </button>
-      <button className={styles.iconDiv}>
-        <FontAwesomeIcon className={styles.icon} icon={faTrashCan} />
-      </button>
-    </div>
-  </div>
-</div>; */}
-
-
-
-
-//
