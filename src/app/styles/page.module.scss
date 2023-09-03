@@ -13,19 +13,6 @@ $header-height: 80px;
     font-size: 2rem;
     margin-right: auto;
   }
-  .userIconDiv {
-    height: 70%;
-    aspect-ratio: 1/1;
-    background-color: white;
-    border-radius: 50%;
-    display: grid;
-    place-content: center;
-    .userIcon {
-      color: black;
-      font-size: 30px;
-    }
-  }
-
   .image {
     height: 70%;
     aspect-ratio: 1/1;
@@ -43,7 +30,10 @@ $header-height: 80px;
   .taskContainer {
     position: relative;
     border: 1px solid black;
-    border-bottom-width: 0px;
+    border-bottom-width: 0px; 
+    &:hover {
+      box-shadow : 0 5px 20px 0 rgba(0,0,0,0.3);
+    }
     &:last-child {
       border-bottom-width: 1px;
     }
