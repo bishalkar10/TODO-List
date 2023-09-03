@@ -8,12 +8,10 @@ export type Task = {
 
 export type TasksState = {
   tasks: Map<string, Task>;
-};
+}; 
 
-const tasksSlice = createSlice({
-  name: "tasks",
-  initialState: {
-    tasks: new Map([
+const initialState : TasksState = {
+    values: new Map([
       [
         "ab1",
         {
@@ -55,7 +53,11 @@ const tasksSlice = createSlice({
         },
       ],
     ]),
-  },
+}
+
+const tasksSlice = createSlice({
+  name: "tasks",
+  initialState,
   reducers: {
     addTask: (state, action) => {
       state.tasks.set(action.payload.id, action.payload.task);
@@ -74,4 +76,4 @@ const tasksSlice = createSlice({
 
 export const { addTask, deleteTask, updateTask } = tasksSlice.actions;
 
-export default tasksSlice;
+export default tasksSlice.reducer;
