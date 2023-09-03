@@ -1,7 +1,5 @@
 "use client"
-import { useSelector, useDispatch } from 'react-redux'
-import { toggle } from '../store/reducers/toggleShow'
-import { RootState } from '../store/store';
+import {useState} from "react";
 import styles from "../styles/page.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
@@ -13,14 +11,13 @@ interface TaskProps {
 }
 
 export default function Task({ id, title, description }: TaskProps) {
-  const show = useSelector((state: RootState) => state.showButtons[id])
-  const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
   return (
     <div
       id={id}
       className={styles.taskContainer}
-      onMouseEnter={() => dispatch(toggle({ taskId: id }))}
-      onMouseLeave={() => dispatch(toggle({ taskId: id }))}
+      onMouseEnter={() => setShow(true)}
+      onMouseLeave={() => setShow(false)}
     >
       <div className={styles.task}>
         <p className={styles.taskTitle}>{title}</p>
