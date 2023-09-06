@@ -30,18 +30,29 @@ $header-height: 80px;
   .taskContainer {
     position: relative;
     border: 1px solid black;
-    border-bottom-width: 0px; 
+    border-bottom-width: 0px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+
     &:hover {
-      box-shadow : 0 5px 20px 0 rgba(0,0,0,0.3);
+      box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.3);
     }
     &:last-child {
       border-bottom-width: 1px;
+    }
+    input[type="checkbox"] {
+      height: 30px;
+      width: 30px;
+      border: 1px solid black;
+      background-color: red;
     }
     .task {
       width: 100%;
       padding: 5px 10px;
       height: 62px;
       overflow: clip;
+      display: inline-block;
 
       &Title {
         font-size: 1.4rem;
@@ -101,4 +112,57 @@ $header-height: 80px;
   font-size: 70px;
   display: grid;
   place-content: center;
+  // prevent text selection
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.modal {
+  z-index: 100;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  .inputContainer {
+    display: flex;
+    flex-direction: column;
+    .titleInput {
+      width: 400px;
+      padding: 10px 20px;
+      border: 2px solid black;
+      color: black;
+      font-size: 1rem;
+      border-radius: 5px 5px 0 0;
+      border-bottom-width: 0px;
+      outline: none;
+      background-color: rgb(226, 202, 202);
+    }
+    .textInput {
+      @extend .titleInput;
+      border-radius: 0 0 5px 5px;
+      border-bottom-width: 2px;
+      height: 100px;
+      resize: none;
+    }
+  }
+  .buttonsContainer {
+    display: flex;
+    justify-content: center;
+    .saveBtn {
+      background: black;
+      color: white;
+      border: none;
+      font-size: 1.2rem;
+      padding: 10px 30px;
+    }
+    .updateBtn {
+      @extend .saveBtn;
+    }
+    .cancelBtn {
+      @extend .saveBtn;
+      background: white;
+      color: black;
+    }
+  }
 }
