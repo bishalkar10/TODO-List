@@ -1,10 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import tasksSlice from "./reducers/tasks";
-import userSlice from "./reducers/user";
+import tasksSliceReducer from "./reducers/tasks";
+import userSliceReducer from "./reducers/user";
+import modalSliceReducer from "./reducers/modal";
+import formDataSliceReducer from "./reducers/formData";
+
 const store = configureStore({
   reducer: {
-    taskList: tasksSlice,
-    user: userSlice,
+    taskList: tasksSliceReducer,
+    user: userSliceReducer,
+    modal: modalSliceReducer,
+    formData: formDataSliceReducer,
   },
 });
 
