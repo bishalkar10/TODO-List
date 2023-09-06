@@ -4,6 +4,7 @@ export type Task = {
   id: string;
   title: string;
   description: string;
+  checked: boolean;
 };
 
 export type TasksState = {
@@ -13,29 +14,34 @@ export type TasksState = {
 const initialState: TasksState = {
   tasks: [
     {
-      id: "ab1",
+      id: "398fa766-309a-4cab-85ca-7997d2c972c0",
       title: "Task Title 1",
       description: "Lorem ipsum dolor...",
+      checked: false,
     },
     {
-      id: "ab2",
+      id: "b84d120e-3bbe-4298-a6b8-6b446e24df4a",
       title: "Task Title 2",
       description: "Lorem ipsum dolor...",
+      checked: false,
     },
     {
-      id: "x@1",
+      id: "65bc825d-a92f-45cb-b952-db1239614051",
       title: "Task Title 3",
       description: "Lorem ipsum dolor...",
+      checked: false,
     },
     {
-      id: "xy2",
+      id: "409a0555-4314-449a-9c91-1f8bb5435eb1",
       title: "Task Title 4",
       description: "Lorem ipsum dolor...",
+      checked: false,
     },
     {
-      id: "a2y",
+      id: "083a2dd0-f83d-488c-932f-de093b44bf24",
       title: "Task Title 5",
       description: "Lorem ipsum dolor...",
+      checked: false,
     },
   ],
 };
@@ -62,7 +68,7 @@ const tasksSlice = createSlice({
         (task) => task.id === action.payload.id
       );
       if (taskIndex !== -1) {
-        state.tasks[taskIndex] = action.payload.task;
+        state.tasks[taskIndex] = action.payload;
       }
       return state;
     },
