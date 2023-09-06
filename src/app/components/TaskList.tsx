@@ -13,6 +13,7 @@ export default function TaskList() {
       id={item.id}
       title={item.title}
       description={item.description}
+      checked={item.checked}
     />
   ));
 
