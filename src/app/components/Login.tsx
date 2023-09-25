@@ -13,7 +13,7 @@ export default function Login() {
   const dispatch = useDispatch()
   const user = useSelector((state: RootState) => state.user)
   const signInStatus = useSelector((state: RootState) => state.user.signedIn)
-
+  console.log(user)
   async function signIn() {
     try {
       const user = await signInWithGoogle();
@@ -22,6 +22,7 @@ export default function Login() {
         dispatch(updateStatus(true))
       }
       dispatch(updateUser({
+        uid: user.uid,
         name: user.displayName,
         email: user.email,
         photo: user.photoURL
