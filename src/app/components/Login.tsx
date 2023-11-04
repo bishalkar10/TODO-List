@@ -1,32 +1,34 @@
-import React from 'react'
+import React from "react";
 import styles from "../styles/page.module.scss";
-import Image from 'next/image'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { signInWithGoogle } from '../../../config/firebase';
-import { useSelector, useDispatch } from 'react-redux';
-import { updateStatus, updateUser } from '../store/reducers/user';
-import { RootState } from '../store/store';
+import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight, faX } from "@fortawesome/free-solid-svg-icons";
+import { signInWithGoogle } from "../../../config/firebase";
+import { useSelector, useDispatch } from "react-redux";
+import { updateStatus, updateUser } from "../store/reducers/user";
+import { RootState } from "../store/store";
+import { closePopup } from "../store/reducers/popup";
 
 export default function Login() {
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user);
+  const signInStatus = useSelector((state: RootState) => state.user.signedIn);
 
-  const dispatch = useDispatch()
-  const user = useSelector((state: RootState) => state.user)
-  const signInStatus = useSelector((state: RootState) => state.user.signedIn)
-  console.log(user)
   async function signIn() {
     try {
       const user = await signInWithGoogle();
       // You can access the user data here
       if (user) {
-        dispatch(updateStatus(true))
+        dispatch(updateStatus(true));
       }
-      dispatch(updateUser({
-        uid: user.uid,
-        name: user.displayName,
-        email: user.email,
-        photo: user.photoURL
-      }))
+      dispatch(
+        updateUser({
+          uid: user.uid,
+          name: user.displayName,
+          email: user.email,
+          photo: user.photoURL,
+        }),
+      );
 
       // Access user.displayName, user.email, user.photoURL, etc.
     } catch (error) {
@@ -34,40 +36,48 @@ export default function Login() {
       console.error("Error signing in:", error);
     }
   }
+  function handleClick() {
+    dispatch(closePopup());
+  }
 
   return (
-    <div
-      className={styles.loginContainer}>
+    <div className={styles.loginContainer}>
+      <div className={styles.closeBtnDiv} onClick={handleClick}>
+        <FontAwesomeIcon className={styles.closeBtn} icon={faX} />
+      </div>
       <figure className={styles.figure}>
         <Image
           className={styles.image}
-          src={signInStatus ? user.photo : '/user.png'}
+          src={signInStatus ? user.photo : "/user.png"}
           width={56}
           height={56}
-          alt="user" />
+          alt="user"
+        />
         {/* Render the userName only if signed IN */}
-        {signInStatus && <figcaption className={styles.username}>{user.name}</figcaption>}
+        {signInStatus && (
+          <figcaption className={styles.username}>{user.name}</figcaption>
+        )}
       </figure>
       {/* if signed IN then render the 'signout' div else render the 'sign In' div */}
       {signInStatus && <p className={styles.userEmail}>{user.email}</p>}
 
-      {!signInStatus ?
-        <button className={styles.signinButton}
-          onClick={signIn}
-        >
+      {!signInStatus ? (
+        <button className={styles.signinButton} onClick={signIn}>
           Continue with
           <Image
             className={styles.icon}
-            src='/google.svg'
+            src="/google.svg"
             width={24}
             height={24}
-            alt="google" />
+            alt="google"
+          />
         </button>
-        :
+      ) : (
         <button className={styles.signoutButton}>
           Sign out
           <FontAwesomeIcon icon={faArrowRight} />
-        </button>}
+        </button>
+      )}
     </div>
-  )
+  );
 }
