@@ -3,6 +3,7 @@ import tasksSliceReducer from "./reducers/tasks";
 import userSliceReducer from "./reducers/user";
 import modalSliceReducer from "./reducers/modal";
 import formDataSliceReducer from "./reducers/formData";
+import popupSliceReducer from "./reducers/popup";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     user: userSliceReducer,
     modal: modalSliceReducer,
     formData: formDataSliceReducer,
+    popup: popupSliceReducer,
   },
 });
 
